@@ -1,0 +1,111 @@
+{
+  "name": "audible-comments",
+  "displayName": "Audible Comments",
+  "description": "Add voice comments to your code - Record, playback, and manage audio annotations",
+  "version": "0.0.1",
+  "publisher": "Harish",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Snippets"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "audible-comments.startRecording",
+        "title": "Audible Comments: Start Recording",
+        "icon": "$(record)"
+      },
+      {
+        "command": "audible-comments.stopRecording",
+        "title": "Audible Comments: Stop Recording",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "audible-comments.playComment",
+        "title": "Audible Comments: Play Comment",
+        "icon": "$(play)"
+      },
+      {
+        "command": "audible-comments.deleteComment",
+        "title": "Audible Comments: Delete Comment",
+        "icon": "$(trash)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "audible-comments",
+          "title": "Audible Comments",
+          "icon": "$(unmute)"
+        }
+      ]
+    },
+    "views": {
+      "audible-comments": [
+        {
+          "id": "audibleCommentsExplorer",
+          "name": "Audio Comments"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "audible-comments.startRecording",
+          "group": "audible-comments@1",
+          "when": "!audioRecording"
+        },
+        {
+          "command": "audible-comments.playComment",
+          "group": "audible-comments@2",
+          "when": "hasAudioComment"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "audible-comments.startRecording",
+          "when": "view == audibleCommentsExplorer && !audioRecording",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/dom-mediacapture-record": "^1.0.21",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.19",
+    "@types/vscode": "^1.86.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.3.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "This extension requires microphone access"
+    }
+  },
+  "dependencies": {
+    "node-audiorecorder": "^3.0.0"
+  }
+}
