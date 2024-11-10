@@ -15,3 +15,24 @@ export interface RecorderConfig {
     type: string;
     silence: number;
 }
+
+export interface AudioPosition {
+    line: number;
+    character: number;
+}
+
+export interface AudioMetadata {
+    id: string;
+    fileName: string;
+    filePath: string;
+    position: AudioPosition;
+    audioFile: string;
+    timestamp: number;
+    duration?: number;
+}
+
+export interface AudioDataStore {
+    // recordings: AudioMetadata[];
+    comments: AudioMetadata[];
+    version: string;
+}
